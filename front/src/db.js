@@ -13,6 +13,7 @@ AWS.config.update({
 });
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
+const s3 = new AWS.S3();
 const dbName = 'TF_database';
 
 const params = {
@@ -57,6 +58,13 @@ const email_params = ({email}) => {
   return params
 }
 
+const getCsvParams = ( requestId ) => {
+  return{
+    Bucket:process.env.REACT_APP_BUCKET_NAME,
+    Key: `result_csv/${requestId}.csv`
+  }
+}
+
 
 export {
   dynamoDB, 
@@ -64,4 +72,6 @@ export {
   main_case_params, 
   case_params,
   email_params,
+  getCsvParams,
+  s3,
 };

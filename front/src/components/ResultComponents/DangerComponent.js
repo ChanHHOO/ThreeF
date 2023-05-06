@@ -4,6 +4,7 @@ import MaliciousBtnComponent from './MaliciousBtnComponent';
 import DangerIcon from '../../statics/images/icon-danger-red.png';
 
 const DangerComponent = ({props}) => {
+	console.log(props);
 	return (
 		<ComponentRoot>
 			<Section>
@@ -29,7 +30,7 @@ const DangerComponent = ({props}) => {
 			</Section>
 			<Section>
         <MaliciousList>
-          <MaliciousBtnComponent />
+          <MaliciousBtnComponent props={{requestId:props.request_id}} />
         </MaliciousList>
 			</Section>
 		</ComponentRoot>

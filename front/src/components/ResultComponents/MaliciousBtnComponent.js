@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import OpenseaLogo from '../../statics/images/OpenseaLogo.png'
+import {s3, getCsvParams} from '../../db';
 
-const MaliciousBtnComponent = () => {
+const MaliciousBtnComponent = ({ props }) => {
+	const onClickDownloadBtn = async () => {
+		const fileName = props.requestId ? props.requestId : 'awesome';
+		const param = await getCsvParams('awesome');
+
+		const data = await s3.getObject(param).promise();
+		const content = data.Body.toString();
+
+		const file = new Blob([content], {type: 'text/csv'});
+		const url = URL.createObjectURL(file);
+
+		const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+	}
+
 	return (
 		<MaliciousItemRoot>
-			{/* <MarketIconConatiner>
-				<MarketIcon src={OpenseaLogo} />			
-			</MarketIconConatiner>
-			<MarliciousItemUrl>[PLAGIARIST] http://naver.com</MarliciousItemUrl> */}
-			<ResultBtn>Download Results</ResultBtn>
+			<ResultBtn onClick={()=>onClickDownloadBtn()}>Download Results</ResultBtn>
 		</MaliciousItemRoot>
 	);
 }
@@ -19,24 +32,6 @@ const MaliciousItemRoot = styled.div`
 	display:flex;
 	margin-left:1em;
 `
-
-const MarliciousItemUrl = styled.p`
-	font-size:0.7vw;
-	line-height:1;
-	margin-left:1em;
-`
-
-const MarketIconConatiner = styled.div`
-	display:flex;
-	justify-content: center;
-	align-items: center;
-`
-
-const MarketIcon = styled.img`
-	width: 1vw;
-	height: 1vw;
-`
-
 const ResultBtn = styled.button`
 	font-size: 1em;
 	font-family: AkiraExpanded;
