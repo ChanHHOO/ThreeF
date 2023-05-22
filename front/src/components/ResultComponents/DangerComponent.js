@@ -29,7 +29,7 @@ const DangerComponent = ({props}) => {
 			</Section>
 			<Section>
         <MaliciousList>
-          <MaliciousBtnComponent />
+          <MaliciousBtnComponent collectionName={props.collection_name}/>
         </MaliciousList>
 			</Section>
 		</ComponentRoot>

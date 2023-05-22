@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-
-const MaliciousBtnComponent = () => {
+import {onClickDownloadCsvBtc} from '../../db';
+const MaliciousBtnComponent = (collectionName) => {
 	return (
-		<MaliciousItemRoot>
+		<MaliciousItemRoot onClick={()=>onClickDownloadCsvBtc(collectionName)}>
 			<ResultBtn>Download Results</ResultBtn>
 		</MaliciousItemRoot>
 	);
